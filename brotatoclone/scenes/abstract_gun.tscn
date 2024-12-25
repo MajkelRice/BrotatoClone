@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://baxvkcu4rhbnj"]
+
+[ext_resource type="Script" path="res://scripts/AbstractGun.cs" id="1_o41e6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ybgtp"]
+radius = 313.082
+
+[node name="AbstractGun" type="Area2D" node_paths=PackedStringArray("ShootingPoint", "Range", "FireTimer")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_o41e6")
+ShootingPoint = NodePath("Pivot/Sprite2D/ShootingPoint")
+Range = NodePath("Range")
+FireTimer = NodePath("FireTimer")
+
+[node name="Range" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ybgtp")
+
+[node name="Pivot" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+rotation = 0.785397
+
+[node name="ShootingPoint" type="Marker2D" parent="Pivot/Sprite2D"]
+unique_name_in_owner = true
+rotation = -0.785397
+
+[node name="FireTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FireTimer" to="." method="Timeout"]

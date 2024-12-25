@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsrr8gbjyco85"]
+
+[ext_resource type="Texture2D" uid="uid://c4iwsn4edhyd1" path="res://assets/UI/04.png" id="1_4s85d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_okru5"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pqkav"]
+radius = 5.38516
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5d5d6"]
+atlas = ExtResource("1_4s85d")
+region = Rect2(297, 133, 32, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1lsw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfuac"]
+atlas = ExtResource("1_4s85d")
+region = Rect2(57, 133, 32, 5)
+
+[node name="AbstractEnemy" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_okru5")
+animation = &"attack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemy"]]
+shape = SubResource("CircleShape2D_pqkav")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="HpBar" type="TextureProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -18.0
+offset_right = 18.0
+offset_bottom = 40.0
+grow_horizontal = 2
+value = 100.0
+texture_under = SubResource("AtlasTexture_5d5d6")
+texture_over = SubResource("AtlasTexture_u1lsw")
+texture_progress = SubResource("AtlasTexture_nfuac")

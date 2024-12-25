@@ -1,0 +1,117 @@
+[gd_scene load_steps=17 format=3 uid="uid://c4e7d1l2jg31t"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_kbb7p"]
+[ext_resource type="Texture2D" uid="uid://bo3dbc6qurkcv" path="res://assets/Dino/DinoSprites - vita.png" id="2_nt7qj"]
+[ext_resource type="Texture2D" uid="uid://d3namreobn7tm" path="res://assets/Dino/shadow_2.png" id="2_upa86"]
+[ext_resource type="PackedScene" uid="uid://bgfoi2ttr8jq2" path="res://scenes/pistol.tscn" id="3_0dv64"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u80l"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0n64"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8anw"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdaw3"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u42yn"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op5v7"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bun65"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fck0j"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7t0xv"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(192, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33ujw"]
+atlas = ExtResource("2_nt7qj")
+region = Rect2(216, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ik3c6"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6u80l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0n64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8anw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdaw3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u42yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op5v7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bun65")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fck0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7t0xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33ujw")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tdum3"]
+radius = 5.09902
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_kbb7p")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("2_upa86")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ik3c6")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.39841
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_tdum3")
+
+[node name="Pistol" parent="." instance=ExtResource("3_0dv64")]
+scale = Vector2(0.389358, 0.389358)
