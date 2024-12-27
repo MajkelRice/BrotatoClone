@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://c4e7d1l2jg31t"]
+[gd_scene load_steps=25 format=3 uid="uid://c4e7d1l2jg31t"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_kbb7p"]
 [ext_resource type="Texture2D" uid="uid://bo3dbc6qurkcv" path="res://assets/Dino/DinoSprites - vita.png" id="2_nt7qj"]
 [ext_resource type="Texture2D" uid="uid://d3namreobn7tm" path="res://assets/Dino/shadow_2.png" id="2_upa86"]
 [ext_resource type="PackedScene" uid="uid://bgfoi2ttr8jq2" path="res://scenes/pistol.tscn" id="3_0dv64"]
+[ext_resource type="Texture2D" uid="uid://c4iwsn4edhyd1" path="res://assets/UI/04.png" id="5_nk7go"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6u80l"]
 atlas = ExtResource("2_nt7qj")
@@ -96,9 +97,42 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_tdum3"]
 radius = 5.09902
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_iycnb"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntalt"]
+atlas = ExtResource("5_nk7go")
+region = Rect2(297, 181, 32, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whj1n"]
+atlas = ExtResource("5_nk7go")
+region = Rect2(6, 131, 38, 11)
+margin = Rect2(-3, -2, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpsnj"]
+atlas = ExtResource("5_nk7go")
+region = Rect2(57, 181, 32, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj6d6"]
+atlas = ExtResource("5_nk7go")
+region = Rect2(297, 149, 32, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnh5x"]
+atlas = ExtResource("5_nk7go")
+region = Rect2(6, 131, 38, 11)
+margin = Rect2(-3, -2, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeqk8"]
+atlas = ExtResource("5_nk7go")
+region = Rect2(57, 149, 32, 5)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("HurtZone", "HpBar", "ExpBar")]
+collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_kbb7p")
+HurtZone = NodePath("HurtBox")
+HpBar = NodePath("UI/HP")
+ExpBar = NodePath("UI/ExpBar")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 texture = ExtResource("2_upa86")
@@ -115,3 +149,38 @@ shape = SubResource("CircleShape2D_tdum3")
 
 [node name="Pistol" parent="." instance=ExtResource("3_0dv64")]
 scale = Vector2(0.389358, 0.389358)
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 3)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_iycnb")
+debug_color = Color(0.961248, 0, 0.511433, 0.42)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HP" type="TextureProgressBar" parent="UI"]
+offset_left = 42.0
+offset_top = 34.0
+offset_right = 82.0
+offset_bottom = 74.0
+scale = Vector2(4, 4)
+value = 50.0
+texture_under = SubResource("AtlasTexture_ntalt")
+texture_over = SubResource("AtlasTexture_whj1n")
+texture_progress = SubResource("AtlasTexture_mpsnj")
+
+[node name="ExpBar" type="TextureProgressBar" parent="UI"]
+offset_left = 42.0
+offset_top = 83.0
+offset_right = 82.0
+offset_bottom = 123.0
+scale = Vector2(4, 4)
+value = 70.0
+texture_under = SubResource("AtlasTexture_gj6d6")
+texture_over = SubResource("AtlasTexture_jnh5x")
+texture_progress = SubResource("AtlasTexture_oeqk8")

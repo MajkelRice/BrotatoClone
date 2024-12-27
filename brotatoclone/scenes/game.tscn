@@ -542,3 +542,5 @@ EnemyScene = ExtResource("3_unobx")
 
 [node name="ExpGroup" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="UI" type="CanvasLayer" parent="."]

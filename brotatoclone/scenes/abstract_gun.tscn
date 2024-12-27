@@ -9,6 +9,7 @@ radius = 313.082
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_o41e6")
+FireRate = 0.3
 ShootingPoint = NodePath("Pivot/Sprite2D/ShootingPoint")
 Range = NodePath("Range")
 FireTimer = NodePath("FireTimer")

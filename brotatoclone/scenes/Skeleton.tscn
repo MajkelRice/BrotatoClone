@@ -117,6 +117,7 @@ animations = [{
 
 [node name="Skeleton" instance=ExtResource("1_fe3n2")]
 script = ExtResource("2_hmuoc")
+ChaseRange = 10000.0
 ExpScene = ExtResource("3_j7r4f")
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]

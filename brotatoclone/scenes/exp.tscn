@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://51yhdj10is7k"]
+[gd_scene load_steps=5 format=3 uid="uid://51yhdj10is7k"]
 
 [ext_resource type="Script" path="res://scripts/Exp.cs" id="1_fx6vn"]
 [ext_resource type="Texture2D" uid="uid://dp41cujeti2ac" path="res://assets/Bullets/All_Fire_Bullet_Pixel_16x16_05.png" id="1_oebcw"]
@@ -7,10 +7,17 @@
 atlas = ExtResource("1_oebcw")
 region = Rect2(258, 50, 13, 13)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqina"]
+radius = 9.0
+
 [node name="Exp" type="Area2D"]
+collision_layer = 4
 script = ExtResource("1_fx6vn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_abrrg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gqina")
 
 [connection signal="body_entered" from="." to="." method="OnExpCollect"]

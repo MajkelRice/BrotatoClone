@@ -1,11 +1,12 @@
 using Godot;
 using System;
 
-public abstract partial class AbstractEnemy : CharacterBody2D
+public partial class AbstractEnemy : CharacterBody2D
 {
     [Export] public double Health = 100.0f;
     [Export] public float Speed = 100.0f;
     [Export] public PackedScene ExpScene;
+    [Export] public float Damage = 10.0f;
 
     private TextureProgressBar _hpBar;
     private AnimatedSprite2D _enemySprite;
@@ -29,6 +30,11 @@ public abstract partial class AbstractEnemy : CharacterBody2D
     {
         Player = player;
         TargetPosition = player.GlobalPosition; // Update the initial target position
+    }
+
+    public float GetDamage()
+    {
+        return Damage;
     }
     
     
@@ -61,10 +67,20 @@ public abstract partial class AbstractEnemy : CharacterBody2D
 
     protected virtual void Die()
     {
-        QueueFree();
+        CallDeferred("deferred_die");
+    }
+
+    private void deferred_die()
+    {
         var exp = ExpScene.Instantiate<Exp>();
         exp.GlobalPosition = GlobalPosition;
-        var expGroup = GetNode<CharacterBody2D>("%ExpGroup");
+        CallDeferred("deferred_add_exp", exp);
+        QueueFree();
+    }
+
+    private void deferred_add_exp(Node exp)
+    {
+        var expGroup = GetTree().Root.GetNode<Node>("Game/ExpGroup");
         expGroup.AddChild(exp);
     }
 

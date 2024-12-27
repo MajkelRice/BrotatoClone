@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsrr8gbjyco85"]
+[gd_scene load_steps=8 format=3 uid="uid://dsrr8gbjyco85"]
 
+[ext_resource type="Script" path="res://scripts/AbstractEnemy.cs" id="1_3ldx0"]
 [ext_resource type="Texture2D" uid="uid://c4iwsn4edhyd1" path="res://assets/UI/04.png" id="1_4s85d"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_okru5"]
@@ -21,7 +22,6 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pqkav"]
-radius = 5.38516
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5d5d6"]
 atlas = ExtResource("1_4s85d")
@@ -36,6 +36,7 @@ region = Rect2(57, 133, 32, 5)
 [node name="AbstractEnemy" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
+script = ExtResource("1_3ldx0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_okru5")
