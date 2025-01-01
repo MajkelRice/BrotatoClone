@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhr56nqomkvuw"]
+
+[ext_resource type="PackedScene" uid="uid://baxvkcu4rhbnj" path="res://scenes/abstract_gun.tscn" id="1_i24wd"]
+[ext_resource type="Script" path="res://scripts/Pistol.cs" id="2_nbhl5"]
+[ext_resource type="PackedScene" uid="uid://c4eiw8ic53x37" path="res://scenes/bullet.tscn" id="3_2ui6q"]
+[ext_resource type="Texture2D" uid="uid://bbhn4npvxqdnm" path="res://assets/Guns/Icon29_31.png" id="4_jbmxr"]
+
+[node name="Pistol" instance=ExtResource("1_i24wd")]
+script = ExtResource("2_nbhl5")
+BulletScene = ExtResource("3_2ui6q")
+
+[node name="Pivot" parent="." index="1"]
+rotation = -0.785397
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+position = Vector2(7.62939e-06, 3.8147e-06)
+rotation = 1.57079
+texture = ExtResource("4_jbmxr")
+
+[node name="ShootingPoint" parent="Pivot/Sprite2D" index="0"]
+position = Vector2(13.435, -13.435)

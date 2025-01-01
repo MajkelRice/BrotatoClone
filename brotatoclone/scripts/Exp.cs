@@ -12,8 +12,8 @@ public partial class Exp : Area2D
 
     public void OnExpCollect(float xp = 10f)
     {
-        player._totalExperience += 10f;
-        player.ExpBar.Value += 10;
+        player._totalExperience += 50f;
+        player.ExpBar.Value += 50;
         QueueFree();
         GD.Print(player._totalExperience);
     }

@@ -4,7 +4,7 @@ using System;
 public partial class AbstractEnemy : CharacterBody2D
 {
     [Export] public double Health = 100.0f;
-    [Export] public float Speed = 100.0f;
+    [Export] public float Speed = 75.0f;
     [Export] public PackedScene ExpScene;
     [Export] public float Damage = 10.0f;
 
@@ -84,6 +84,11 @@ public partial class AbstractEnemy : CharacterBody2D
         expGroup.AddChild(exp);
     }
 
+
+    public CharacterBody2D GetPlayer()
+    {
+        return Player;
+    }
 
     
 }

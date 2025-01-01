@@ -1,0 +1,106 @@
+[gd_scene load_steps=7 format=3 uid="uid://u38efntdvjlx"]
+
+[ext_resource type="PackedScene" uid="uid://dqolhmalbnrw8" path="res://scenes/skill_button.tscn" id="1_njlfi"]
+[ext_resource type="Script" path="res://scripts/SkillTree.cs" id="1_x1y7l"]
+[ext_resource type="Texture2D" uid="uid://cyp3henmlxski" path="res://assets/Bullets/All_Fire_Bullet_Pixel_16x16_00.png" id="3_khqb5"]
+[ext_resource type="Texture2D" uid="uid://cywnook5fabag" path="res://assets/Bullets/All_Fire_Bullet_Pixel_16x16_04.png" id="4_03uoq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aidlc"]
+atlas = ExtResource("3_khqb5")
+region = Rect2(2, 35, 13, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k04a6"]
+atlas = ExtResource("4_03uoq")
+region = Rect2(450, 230, 29, 19)
+
+[node name="SkillTree" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x1y7l")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkillButton" parent="." instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = 563.0
+offset_top = 535.0
+offset_right = 603.0
+offset_bottom = 575.0
+texture_normal = SubResource("AtlasTexture_aidlc")
+StatKeys = PackedStringArray("Health")
+StatValues = PackedFloat32Array(10)
+
+[node name="SkillButton2" parent="SkillButton" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = -151.0
+offset_top = -64.0
+offset_right = -111.0
+offset_bottom = -24.0
+disabled = true
+
+[node name="SkillButton" parent="SkillButton/SkillButton2" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = -71.0
+offset_top = -74.0
+offset_right = -31.0
+offset_bottom = -34.0
+disabled = true
+
+[node name="SkillButton2" parent="SkillButton/SkillButton2" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = 48.0
+offset_top = -71.0
+offset_right = 88.0
+offset_bottom = -31.0
+disabled = true
+
+[node name="SkillButton" parent="SkillButton/SkillButton2/SkillButton2" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_top = -81.0
+offset_bottom = -41.0
+disabled = true
+
+[node name="SkillButton2" parent="SkillButton/SkillButton2/SkillButton2" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = 61.0
+offset_top = -54.0
+offset_right = 101.0
+offset_bottom = -14.0
+disabled = true
+
+[node name="SkillButton" parent="SkillButton" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = 131.0
+offset_top = -57.0
+offset_right = 171.0
+offset_bottom = -17.0
+disabled = true
+texture_normal = SubResource("AtlasTexture_k04a6")
+StatKeys = PackedStringArray("Speed")
+StatValues = PackedFloat32Array(10)
+
+[node name="SkillButton" parent="SkillButton/SkillButton" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = -68.0
+offset_top = -83.0
+offset_right = -28.0
+offset_bottom = -43.0
+disabled = true
+
+[node name="SkillButton2" parent="SkillButton/SkillButton" instance=ExtResource("1_njlfi")]
+layout_mode = 0
+offset_left = 58.0
+offset_top = -81.0
+offset_right = 98.0
+offset_bottom = -41.0
+disabled = true

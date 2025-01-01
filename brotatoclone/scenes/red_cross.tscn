@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdav6xcg40xlh"]
+
+[ext_resource type="Texture2D" uid="uid://cyp3henmlxski" path="res://assets/Bullets/All_Fire_Bullet_Pixel_16x16_00.png" id="1_2pdy7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wcah"]
+atlas = ExtResource("1_2pdy7")
+region = Rect2(546, 291, 26, 25)
+
+[node name="StaticBody2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_4wcah")

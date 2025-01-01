@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class AbstractBullet : Area2D
+public partial class AbstractBullet : Area2D, ISkillTree
 {
     [Export] public float Speed = 400f;
     
@@ -9,7 +9,9 @@ public partial class AbstractBullet : Area2D
     
     private Vector2 _direction;
     private double _traveledDistance;
-    private double _range = 1200f;
+    protected double _range = 1200f;
+
+    private int _skillPoints = 0;
     
 
     public override void _Process(double delta)
@@ -30,5 +32,20 @@ public partial class AbstractBullet : Area2D
     private void OnBulletScreenExited()
     {
         QueueFree();
+    }
+
+    public int GetSkillPoints()
+    {
+        return _skillPoints;
+    }
+
+    public void DecrementSkillPoints()
+    {
+        _skillPoints--;
+    }
+
+    public float GetDamage()
+    {
+        return Damage;
     }
 }

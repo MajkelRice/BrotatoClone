@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwxf1qk1226qr"]
+
+[ext_resource type="PackedScene" uid="uid://baxvkcu4rhbnj" path="res://scenes/abstract_gun.tscn" id="1_f0vqs"]
+[ext_resource type="Script" path="res://scripts/Guns/LaserRifle.cs" id="2_w0ool"]
+[ext_resource type="PackedScene" uid="uid://c4eiw8ic53x37" path="res://scenes/bullet.tscn" id="3_4u68t"]
+[ext_resource type="Texture2D" uid="uid://c72q7abvh4etw" path="res://assets/Guns/Icon29_13.png" id="4_dhjp1"]
+
+[node name="LaserRifle" instance=ExtResource("1_f0vqs")]
+script = ExtResource("2_w0ool")
+LaserDuration = 0.5
+LaserColor = Color(1, 0, 0, 1)
+LaserWidth = 2.0
+Damage = 10.0
+BulletScene = ExtResource("3_4u68t")
+FireRate = 0.01
+
+[node name="Pivot" parent="." index="1"]
+rotation = -0.785397
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+position = Vector2(7.62939e-06, 3.8147e-06)
+rotation = 1.57079
+texture = ExtResource("4_dhjp1")
+
+[node name="ShootingPoint" parent="Pivot/Sprite2D" index="0"]
+position = Vector2(13.435, -13.435)

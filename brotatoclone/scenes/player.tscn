@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_kbb7p"]
 [ext_resource type="Texture2D" uid="uid://bo3dbc6qurkcv" path="res://assets/Dino/DinoSprites - vita.png" id="2_nt7qj"]
 [ext_resource type="Texture2D" uid="uid://d3namreobn7tm" path="res://assets/Dino/shadow_2.png" id="2_upa86"]
-[ext_resource type="PackedScene" uid="uid://bgfoi2ttr8jq2" path="res://scenes/pistol.tscn" id="3_0dv64"]
 [ext_resource type="Texture2D" uid="uid://c4iwsn4edhyd1" path="res://assets/UI/04.png" id="5_nk7go"]
+[ext_resource type="PackedScene" uid="uid://u38efntdvjlx" path="res://scenes/skill_tree.tscn" id="6_f3urn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6u80l"]
 atlas = ExtResource("2_nt7qj")
@@ -126,13 +126,14 @@ margin = Rect2(-3, -2, 0, 0)
 atlas = ExtResource("5_nk7go")
 region = Rect2(57, 149, 32, 5)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("HurtZone", "HpBar", "ExpBar")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("HurtZone", "HpBar", "ExpBar", "SkillTree")]
 collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_kbb7p")
 HurtZone = NodePath("HurtBox")
 HpBar = NodePath("UI/HP")
 ExpBar = NodePath("UI/ExpBar")
+SkillTree = NodePath("UI/SkillTree")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 texture = ExtResource("2_upa86")
@@ -146,9 +147,6 @@ frame_progress = 0.39841
 [node name="PlayerCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_tdum3")
-
-[node name="Pistol" parent="." instance=ExtResource("3_0dv64")]
-scale = Vector2(0.389358, 0.389358)
 
 [node name="HurtBox" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -184,3 +182,5 @@ value = 70.0
 texture_under = SubResource("AtlasTexture_gj6d6")
 texture_over = SubResource("AtlasTexture_jnh5x")
 texture_progress = SubResource("AtlasTexture_oeqk8")
+
+[node name="SkillTree" parent="UI" instance=ExtResource("6_f3urn")]

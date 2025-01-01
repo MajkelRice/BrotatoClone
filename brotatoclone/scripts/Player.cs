@@ -1,22 +1,35 @@
 using Godot;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
-public partial class Player: CharacterBody2D
+public partial class Player : CharacterBody2D, ISkillTree
 {
     [Export] public float Health = 100.0f;
-    [Export] public float MoveSpeed = 200.0f; 
-    [Export] public float DashSpeed = 400.0f;
+    [Export] public float MaxHealth = 100.0f;
+    [Export] public float MoveSpeed = 150.0f; 
+    [Export] public float DashSpeed = 200.0f;
     [Export] public float DashDuration = 0.2f;
     [Export] public float DashCooldown = 1.0f;
 
     [Export] public float IFrameDuration = 1.0f;
     
-    [Export] public float _totalExperience = 30f;
+    [Export] public float _totalExperience = 0f;
+    [Export] public float ExperienceToNextLevel = 100f;
+    [Export] public int Level = 1;
     [Export] public Area2D HurtZone;
     [Export] public TextureProgressBar HpBar;
     [Export] public TextureProgressBar ExpBar;
+    [Export] public Control SkillTree;
+
+    [Export] public int MaxWeaponSlots = 6;
+    [Export] public int UnlockedWeaponSlots = 6;
+
+    private List<string> _weaponSlots = new List<string>();
+
     private AnimatedSprite2D _playerSprite;
     private Vector2 _inputDirection = Vector2.Zero;
+    private int _skillPoints = 0;
     
     private float _dashTimer = 0.0f;
     private float _cooldownTimer = 0.0f;
@@ -33,9 +46,31 @@ public partial class Player: CharacterBody2D
     public override void _Ready()
     {
         _playerSprite = GetNode<AnimatedSprite2D>("PlayerSprite");
-        HpBar.MaxValue = Health;
+        HpBar.MaxValue = MaxHealth;
         HpBar.Value = Health;
+        ExpBar.MaxValue = ExperienceToNextLevel;
         ExpBar.Value = _totalExperience;
+        Health = MaxHealth;
+
+        SkillTree.Visible = false;
+        
+        for (int i = 0; i < MaxWeaponSlots; i++)
+        {
+            _weaponSlots.Add(null); // null indicates an empty slot
+        }
+        
+        //ONLY FOR DEVELOPMENT
+        PackedScene swordScene = GD.Load<PackedScene>("res://scenes/pistol.tscn");
+        PackedScene shotGunScene = GD.Load<PackedScene>("res://scenes/guns/ShotGun.tscn");
+        PackedScene burstRifleScene = GD.Load<PackedScene>("res://scenes/guns/BurstRifle.tscn");
+        PackedScene rocketLauncherScene = GD.Load<PackedScene>("res://scenes/guns/RocketLauncher.tscn");
+        
+        EquipWeapon(swordScene);
+        EquipWeapon(shotGunScene);
+        EquipWeapon(burstRifleScene);
+        EquipWeapon(rocketLauncherScene);
+        
+        
     }
 
     public override void _Process(double delta)
@@ -46,6 +81,8 @@ public partial class Player: CharacterBody2D
             Input.GetActionStrength("go_right") - Input.GetActionStrength("go_left"),
             Input.GetActionStrength("go_down") - Input.GetActionStrength("go_up")
         );
+
+        if (Input.IsActionJustPressed("passive_skill_tree")) SkillTree.Visible = !SkillTree.Visible; 
 
         if (_inputDirection.LengthSquared() > 0)
             _inputDirection = _inputDirection.Normalized();
@@ -100,6 +137,11 @@ public partial class Player: CharacterBody2D
                 break;
             }
         }
+        
+        if (_totalExperience >= ExperienceToNextLevel)
+        {
+            LevelUp();
+        }
     }
 	
     private void Die()
@@ -125,12 +167,146 @@ public partial class Player: CharacterBody2D
         _iFrameTimer = IFrameDuration;
         _flashTimer = 0.0f;
         _flashCount = 0;
-        _playerSprite.Modulate = new Color(1, 0, 0, 1); // Start with red
+        _playerSprite.Modulate = new Color(1, 0, 0, 1);
     }
 
     private void EndIFrame()
     {
         _isIFraming = false;
-        _playerSprite.Modulate = new Color(1, 1, 1, 1); // Restore original appearance
+        _playerSprite.Modulate = new Color(1, 1, 1, 1);
+    }
+    
+    private void LevelUp()
+    {
+        Level++;
+        _totalExperience -= ExperienceToNextLevel;
+        ExperienceToNextLevel *= 1.25f;
+        ExpBar.Value = _totalExperience;
+
+        _skillPoints++;
+        
+        ExpBar.MaxValue = ExperienceToNextLevel;
+
+        GD.Print($"Leveled up! Available skill Points: {_skillPoints}");
+    }
+
+    public int GetSkillPoints()
+    {
+        return _skillPoints;
+    }
+
+    public void DecrementSkillPoints()
+    {
+        _skillPoints--;
+    }
+    
+    public void ApplyStatModifiers(Dictionary<string, float> modifiers)
+    {
+        foreach (var modifier in modifiers)
+        {
+            switch (modifier.Key)
+            {
+                case "Health":
+                    IncreaseHealth(modifier.Value);
+                    break;
+                case "Speed":
+                    IncreaseSpeed(modifier.Value);
+                    break;
+                default:
+                    GD.PrintErr($"Unknown stat modifier: {modifier.Key}");
+                    break;
+            }
+        }
+    }
+    
+    private void IncreaseHealth(float amount)
+    {
+        MaxHealth += amount;
+        HpBar.MaxValue = MaxHealth;
+        GD.Print($"Increased health to {MaxHealth}");
+    }
+
+    private void IncreaseSpeed(float amount)
+    {
+        MoveSpeed += amount;
+        GD.Print($"Increased speed to {MoveSpeed}");
+    }
+
+    public bool UnlockWeaponSlot()
+    {
+        if (UnlockedWeaponSlots < MaxWeaponSlots)
+        {
+            UnlockedWeaponSlots++;
+            GD.Print($"Weapon slot unlocked! Total unlocked slots: {UnlockedWeaponSlots}");
+            return true;
+        }
+        GD.Print("All weapon slots are already unlocked.");
+        return false;
+    }
+
+    public bool EquipWeapon(PackedScene weaponScene)
+    {
+        if (_weaponSlots.Count(weapon => weapon != null) >= UnlockedWeaponSlots)
+        {
+            GD.Print("No available slots to equip the weapon.");
+            return false;
+        }
+
+        
+        // Calculate positions evenly distributed on a circle
+        Vector2[] weaponPositions = new Vector2[UnlockedWeaponSlots];
+        float radius = 40.0f; // The radius of the circle
+
+        for (int i = 0; i < UnlockedWeaponSlots; i++)
+        {
+            // Calculate the angle for this slot
+            float angle = (i * 360.0f / UnlockedWeaponSlots) * (Mathf.Pi / 180.0f); // Convert to radians
+
+            // Calculate the x and y position using cosine and sine
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+
+            // Store the position
+            weaponPositions[i] = new Vector2(x, y);
+        }
+
+        
+        for (int i = 0; i < UnlockedWeaponSlots; i++)
+        {
+            if (_weaponSlots[i] == null)
+            {
+                AbstractGun weaponInstance = weaponScene.Instantiate<AbstractGun>();
+                weaponInstance.Scale = new Vector2(0.5f, 0.5f);
+                weaponInstance.Position = weaponPositions[i]; // Set position based on slot
+                AddChild(weaponInstance); // Add to the player node
+                _weaponSlots[i] = weaponInstance.Name;
+
+                GD.Print($"Equipped weapon in slot {i + 1} at position {weaponPositions[i]}.");
+                return true;
+            }
+        }
+
+        GD.Print("All unlocked slots are occupied.");
+        return false;
+    }
+
+
+    public void UnequipWeapon(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= UnlockedWeaponSlots)
+        {
+            GD.PrintErr("Invalid slot index.");
+            return;
+        }
+
+        if (_weaponSlots[slotIndex] != null)
+        {
+            GD.Print($"Unequipped {_weaponSlots[slotIndex]} from slot {slotIndex + 1}.");
+            _weaponSlots[slotIndex] = null;
+        }
+        else
+        {
+            GD.Print("Slot is already empty.");
+        }
     }
 }

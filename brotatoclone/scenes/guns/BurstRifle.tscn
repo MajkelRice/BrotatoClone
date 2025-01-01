@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://ys7qsbaeqlcm"]
+
+[ext_resource type="PackedScene" uid="uid://baxvkcu4rhbnj" path="res://scenes/abstract_gun.tscn" id="1_wqbwn"]
+[ext_resource type="Script" path="res://scripts/Guns/BurstRifle.cs" id="2_gmcgl"]
+[ext_resource type="PackedScene" uid="uid://c4eiw8ic53x37" path="res://scenes/bullet.tscn" id="3_4lipq"]
+[ext_resource type="Texture2D" uid="uid://b76m36gs5t2ic" path="res://assets/Guns/Icon29_04.png" id="3_mtgep"]
+
+[node name="BurstRifle" instance=ExtResource("1_wqbwn")]
+script = ExtResource("2_gmcgl")
+BulletsPerBurst = 3
+BurstInterval = 0.02
+BulletScene = ExtResource("3_4lipq")
+
+[node name="Pivot" parent="." index="1"]
+rotation = -0.785397
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+position = Vector2(7.62939e-06, 3.8147e-06)
+rotation = 1.57079
+texture = ExtResource("3_mtgep")
+
+[node name="ShootingPoint" parent="Pivot/Sprite2D" index="0"]
+position = Vector2(13.435, -13.435)

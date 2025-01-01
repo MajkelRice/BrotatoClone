@@ -14,11 +14,9 @@ public partial class EnemySpawner : Node2D
     {
         _spawnTimer -= (float)delta;
 
-        if (_spawnTimer <= 0 && GetChildren().Count < MaxEnemies)
-        {
-            SpawnEnemy();
-            _spawnTimer = SpawnInterval;
-        }
+        if (!(_spawnTimer <= 0) || GetChildren().Count >= MaxEnemies) return;
+        SpawnEnemy();
+        _spawnTimer = SpawnInterval;
     }
 
     private void SpawnEnemy()

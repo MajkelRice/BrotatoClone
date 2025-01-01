@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2krwf333u6uy"]
+
+[ext_resource type="PackedScene" uid="uid://gfk6ox3yoiex" path="res://scenes/abstract_bullet.tscn" id="1_hmhxo"]
+[ext_resource type="Script" path="res://scripts/Bullets/Laser.cs" id="2_8obg4"]
+
+[node name="AbstractBullet" instance=ExtResource("1_hmhxo")]
+script = ExtResource("2_8obg4")

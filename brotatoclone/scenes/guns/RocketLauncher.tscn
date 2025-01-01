@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4oce1x2ejpku"]
+
+[ext_resource type="PackedScene" uid="uid://baxvkcu4rhbnj" path="res://scenes/abstract_gun.tscn" id="1_8x3vh"]
+[ext_resource type="Script" path="res://scripts/Guns/RocketLauncher.cs" id="2_ewdp1"]
+[ext_resource type="PackedScene" uid="uid://c3yrwtrjya4mi" path="res://scenes/bullets/rocket.tscn" id="3_8akr6"]
+[ext_resource type="Texture2D" uid="uid://sjxxlklqgiir" path="res://assets/Guns/Icon29_39.png" id="3_i5y8l"]
+
+[node name="RocketLauncher" instance=ExtResource("1_8x3vh")]
+script = ExtResource("2_ewdp1")
+BulletScene = ExtResource("3_8akr6")
+FireRate = 0.5
+
+[node name="Pivot" parent="." index="1"]
+rotation = -0.785397
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+position = Vector2(7.62939e-06, 3.8147e-06)
+rotation = 1.57079
+texture = ExtResource("3_i5y8l")
+
+[node name="ShootingPoint" parent="Pivot/Sprite2D" index="0"]
+position = Vector2(13.435, -13.435)

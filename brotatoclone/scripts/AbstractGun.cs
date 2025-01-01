@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class AbstractGun : Area2D
+public partial class AbstractGun : Area2D, ISkillTree
 {
     [Export]
     public PackedScene BulletScene;
@@ -15,6 +15,8 @@ public partial class AbstractGun : Area2D
     [Export] public Timer FireTimer;
     private float _fireCooldown = 0f;
 
+    private int _skillPoints = 0;
+    
     public override void _Ready()
     {
         FireTimer.WaitTime = FireRate;
@@ -30,7 +32,7 @@ public partial class AbstractGun : Area2D
         }
     }
 
-    private void _Fire()
+    protected virtual void _Fire()
     {
         if (BulletScene == null)
         {
@@ -50,5 +52,15 @@ public partial class AbstractGun : Area2D
     private void Timeout()
     {
         if (GetOverlappingBodies().Count > 0) _Fire();
+    }
+
+    public int GetSkillPoints()
+    {
+        return _skillPoints;
+    }
+
+    public void DecrementSkillPoints()
+    {
+        _skillPoints--;
     }
 }
