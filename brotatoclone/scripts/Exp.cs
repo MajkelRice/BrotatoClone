@@ -10,6 +10,7 @@ public partial class Exp : Area2D
         player = GetTree().Root.GetNode<Player>("Game/Player");
     }
 
+
     public void OnExpCollect(float xp = 10f)
     {
         player._totalExperience += 50f;

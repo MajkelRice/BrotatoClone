@@ -1,0 +1,138 @@
+[gd_scene load_steps=21 format=3 uid="uid://7gih1yd4ia4s"]
+
+[ext_resource type="PackedScene" uid="uid://c5oojf3u57s0j" path="res://scenes/abstract_sword.tscn" id="1_vwl6e"]
+[ext_resource type="Texture2D" uid="uid://cn8lbid2vfh38" path="res://assets/Swords/Free Swordtember 2024/Swordtember Icons Animation/Swordtember_Day_03_Icon.png" id="2_nkun4"]
+[ext_resource type="Texture2D" uid="uid://chx7wfqspomb8" path="res://assets/Swords/Free Swordtember 2024/Swordtember Swing Animation/Swordtember_Day_03_Swing.png" id="3_fk25d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74rpv"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uafvk"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmfsb"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps46s"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dthgm"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsvll"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlabn"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y700h"]
+atlas = ExtResource("2_nkun4")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgnl4"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1dfo"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23sd8"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3yr5"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(240, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_do2r7"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(320, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2r5f"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(400, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocx44"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(480, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt66j"]
+atlas = ExtResource("3_fk25d")
+region = Rect2(560, 0, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kyxf8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74rpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uafvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmfsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps46s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dthgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsvll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlabn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y700h")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgnl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1dfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23sd8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3yr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_do2r7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2r5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocx44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt66j")
+}],
+"loop": true,
+"name": &"swing",
+"speed": 10.0
+}]
+
+[node name="AbstractSword" instance=ExtResource("1_vwl6e")]
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_kyxf8")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.788413

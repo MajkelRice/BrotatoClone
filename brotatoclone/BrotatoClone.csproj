@@ -6,4 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>BrotatoClone/brotatoclone</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="scripts\Swords\" />
+  </ItemGroup>
 </Project>

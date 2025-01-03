@@ -22,8 +22,8 @@ public partial class Player : CharacterBody2D, ISkillTree
     [Export] public TextureProgressBar ExpBar;
     [Export] public Control SkillTree;
 
-    [Export] public int MaxWeaponSlots = 6;
-    [Export] public int UnlockedWeaponSlots = 6;
+    [Export] public int MaxWeaponSlots = 16;
+    [Export] public int UnlockedWeaponSlots = 16;
 
     private List<string> _weaponSlots = new List<string>();
 
@@ -60,17 +60,23 @@ public partial class Player : CharacterBody2D, ISkillTree
         }
         
         //ONLY FOR DEVELOPMENT
-        PackedScene swordScene = GD.Load<PackedScene>("res://scenes/pistol.tscn");
+        PackedScene pistolScene = GD.Load<PackedScene>("res://scenes/pistol.tscn");
         PackedScene shotGunScene = GD.Load<PackedScene>("res://scenes/guns/ShotGun.tscn");
         PackedScene burstRifleScene = GD.Load<PackedScene>("res://scenes/guns/BurstRifle.tscn");
         PackedScene rocketLauncherScene = GD.Load<PackedScene>("res://scenes/guns/RocketLauncher.tscn");
-        
-        EquipWeapon(swordScene);
-        EquipWeapon(shotGunScene);
-        EquipWeapon(burstRifleScene);
-        EquipWeapon(rocketLauncherScene);
-        
-        
+        PackedScene basicSwordScene = GD.Load<PackedScene>("res://scenes/swords/basic_sword.tscn");
+        PackedScene deathSwordScene = GD.Load<PackedScene>("res://scenes/swords/death_sword.tscn");
+        PackedScene flamethrowerScene = GD.Load<PackedScene>("res://scenes/guns/flamethrower.tscn");
+        PackedScene clusterBombLauncherScene = GD.Load<PackedScene>("res://scenes/guns/cluster_bomb_launcher.tscn");
+        PackedScene lightningGunScene = GD.Load<PackedScene>("res://scenes/guns/lightning_gun.tscn");
+        PackedScene smgScene = GD.Load<PackedScene>("res://scenes/guns/smg.tscn");
+        PackedScene poisonGun = GD.Load<PackedScene>("res://scenes/guns/poison_spitter.tscn");
+
+
+
+        EquipWeapon(clusterBombLauncherScene);
+
+
     }
 
     public override void _Process(double delta)
@@ -275,11 +281,10 @@ public partial class Player : CharacterBody2D, ISkillTree
         {
             if (_weaponSlots[i] == null)
             {
-                AbstractGun weaponInstance = weaponScene.Instantiate<AbstractGun>();
-                weaponInstance.Scale = new Vector2(0.5f, 0.5f);
-                weaponInstance.Position = weaponPositions[i]; // Set position based on slot
-                AddChild(weaponInstance); // Add to the player node
-                _weaponSlots[i] = weaponInstance.Name;
+                var weaponInstance = weaponScene.Instantiate<IWeapon>();
+                Vector2 position = weaponInstance.GetPosition(i, UnlockedWeaponSlots, radius);
+                weaponInstance.Equip(this, position);
+                _weaponSlots[i] = (weaponInstance as Node2D)?.Name;
 
                 GD.Print($"Equipped weapon in slot {i + 1} at position {weaponPositions[i]}.");
                 return true;

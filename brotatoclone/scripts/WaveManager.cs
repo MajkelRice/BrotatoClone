@@ -63,6 +63,24 @@ public partial class WaveManager : Node
         _isWaveActive = false;
         _spawnTimer.Stop();
         _breakTimer.Start();
+        
+        Node expGroup = GetParent().GetNode("ExpGroup"); // Replace "ExpGroup" with the actual group name if different
+        foreach (Node child in expGroup.GetChildren())
+        {
+            if (child is Area2D expNode)
+            {
+                Vector2 targetPosition = _player.Position;
+
+                // Create a new Tween instance
+                var tween = GetTree().CreateTween();
+                tween.TweenProperty(expNode, "position", targetPosition, 0.5f); // Adjust duration as needed
+
+                // Ensure the Exp node remains active until it reaches the player
+                tween.Finished += () =>
+                {
+                };
+            }
+        }
     }
 
     private void SpawnEnemyGroup()

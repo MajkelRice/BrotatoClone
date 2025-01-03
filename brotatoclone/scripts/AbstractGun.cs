@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class AbstractGun : Area2D, ISkillTree
+public partial class AbstractGun : Area2D, ISkillTree, IWeapon
 {
     [Export]
     public PackedScene BulletScene;
@@ -20,6 +20,7 @@ public partial class AbstractGun : Area2D, ISkillTree
     public override void _Ready()
     {
         FireTimer.WaitTime = FireRate;
+        
     }
 
     public override void _Process(double delta)
@@ -62,5 +63,18 @@ public partial class AbstractGun : Area2D, ISkillTree
     public void DecrementSkillPoints()
     {
         _skillPoints--;
+    }
+
+    public Vector2 GetPosition(int slotIndex, int totalSlots, float radius)
+    {
+        float angle = (slotIndex * 360.0f / totalSlots) * (Mathf.Pi / 180.0f);
+        return new Vector2(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle));
+    }
+
+    public void Equip(Node2D parent, Vector2 position)
+    {
+        Scale = new Vector2(0.5f, 0.5f);
+        Position = position;
+        parent.AddChild(this);
     }
 }

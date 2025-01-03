@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5oojf3u57s0j"]
+
+[ext_resource type="Script" path="res://scripts/AbstractSword.cs" id="1_4853y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y4sgb"]
+radius = 240.052
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d71x4"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"swing",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lttt8"]
+radius = 28.0179
+
+[node name="AbstractSword" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_4853y")
+
+[node name="RangeArea" type="Area2D" parent="."]
+
+[node name="Range" type="CollisionShape2D" parent="RangeArea"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_y4sgb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d71x4")
+animation = &"swing"
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_lttt8")
+debug_color = Color(0.954972, 2.31028e-06, 0.545648, 0.42)
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

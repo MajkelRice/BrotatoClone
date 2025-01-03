@@ -15,6 +15,7 @@ public partial class Skeleton : AbstractEnemy
         if (Player != null && GlobalPosition.DistanceTo(Player.GlobalPosition) <= ChaseRange)
         {
             MoveTowardsTarget(delta);
+            HandlePoisonEffect(delta);
         }
     }
 

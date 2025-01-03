@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://68raov5dhmnv"]
+
+[ext_resource type="PackedScene" uid="uid://baxvkcu4rhbnj" path="res://scenes/abstract_gun.tscn" id="1_0afhj"]
+[ext_resource type="Texture2D" uid="uid://cb6ah5rt4n4ni" path="res://assets/Guns/Icon29_33.png" id="2_hflxj"]
+[ext_resource type="PackedScene" uid="uid://bexpu5ohx7f18" path="res://scenes/bullets/cluster_bomb.tscn" id="2_s1a14"]
+
+[node name="AbstractGun" instance=ExtResource("1_0afhj")]
+BulletScene = ExtResource("2_s1a14")
+FireRate = 0.5
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+texture = ExtResource("2_hflxj")
+
+[node name="ShootingPoint" parent="Pivot/Sprite2D" index="0"]
+position = Vector2(12.0208, -10.6066)

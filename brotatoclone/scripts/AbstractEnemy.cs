@@ -7,6 +7,11 @@ public partial class AbstractEnemy : CharacterBody2D
     [Export] public float Speed = 75.0f;
     [Export] public PackedScene ExpScene;
     [Export] public float Damage = 10.0f;
+    private bool _isPoisoned = false; // To track if the enemy is already poisoned
+    private float _poisonTimer = 0f; // Timer to track poison duration
+    private float _poisonDuration = 2f; // Poison lasts for 2 seconds
+    private float _poisonDamage;      
+    private float _poisonTotalDamage;
 
     private TextureProgressBar _hpBar;
     private AnimatedSprite2D _enemySprite;
@@ -23,8 +28,33 @@ public partial class AbstractEnemy : CharacterBody2D
     public override void _Process(double delta)
     {
         MoveTowardsTarget((float)delta);
+        HandlePoisonEffect((float)delta);
+
     }
-    
+
+
+    public void HandlePoisonEffect(float delta)
+    {
+        if (_isPoisoned)
+        {
+            _enemySprite.Modulate = new Color(0.2f, 1.0f, 0.2f); // Slight green tint for poison
+            _poisonTimer += delta;
+
+            if (_poisonTimer < _poisonDuration)
+            {
+                float damageThisFrame = (_poisonTotalDamage / _poisonDuration) * delta;
+                TakeDamage(damageThisFrame);
+            }
+            else
+            {
+                // Poison duration is over
+                _isPoisoned = false;
+                _poisonTimer = 0f; // Reset the timer
+                ResetSpriteModulate();
+            }
+        }
+    }
+
     
     public void SetTarget(CharacterBody2D player)
     {
@@ -68,6 +98,21 @@ public partial class AbstractEnemy : CharacterBody2D
     protected virtual void Die()
     {
         CallDeferred("deferred_die");
+    }
+
+    public void Poison(float damage)
+    {
+        if (_isPoisoned) return;
+        
+        _isPoisoned = true;
+        _poisonTotalDamage = damage;
+        GD.Print(_isPoisoned);
+        _poisonTimer = 0f; // Reset poison timer
+    }
+    
+    private void ResetSpriteModulate()
+    {
+        _enemySprite.Modulate = Colors.White; // Reset modulate to default
     }
 
     private void deferred_die()

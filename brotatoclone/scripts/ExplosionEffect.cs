@@ -11,7 +11,7 @@ public partial class ExplosionEffect : AnimatedSprite2D
         Vector2 frameSize = SpriteFrames.GetFrameTexture(Animation, 0).GetSize();
 
         // Adjust the size of the explosion animation
-        Scale = new Vector2(ExplosionRadius / frameSize.X, ExplosionRadius / frameSize.Y);
+        Scale = new Vector2(2 * ExplosionRadius / frameSize.X, 2 * ExplosionRadius / frameSize.Y);
 
         // Play the animation
         Play("default");

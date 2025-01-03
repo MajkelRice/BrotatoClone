@@ -127,6 +127,7 @@ atlas = ExtResource("5_nk7go")
 region = Rect2(57, 149, 32, 5)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("HurtZone", "HpBar", "ExpBar", "SkillTree")]
+collision_layer = 0
 collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_kbb7p")

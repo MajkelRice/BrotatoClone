@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/AbstractBullet.cs" id="1_gjpaa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_24e7g"]
-radius = 25.0799
+radius = 9.05539
 
 [node name="AbstractBullet" type="Area2D"]
 top_level = true

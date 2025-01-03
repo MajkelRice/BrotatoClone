@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3yrwtrjya4mi"]
+[gd_scene load_steps=11 format=3 uid="uid://c3yrwtrjya4mi"]
 
 [ext_resource type="PackedScene" uid="uid://gfk6ox3yoiex" path="res://scenes/abstract_bullet.tscn" id="1_fiahg"]
 [ext_resource type="Texture2D" uid="uid://cyp3henmlxski" path="res://assets/Bullets/All_Fire_Bullet_Pixel_16x16_00.png" id="2_2wbf3"]
@@ -41,13 +41,23 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_a2x2w"]
+
 [node name="Rocket" instance=ExtResource("1_fiahg")]
 script = ExtResource("2_4thug")
 ExplosionEffect = ExtResource("3_58iyg")
-ExplosionRadius = 100.0
+ExplosionRadius = 50.0
 ExplosionDamage = 50
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_yjigy")
 autoplay = "default"
 frame_progress = 0.610329
+
+[node name="ExplosionArea" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea" index="0"]
+shape = SubResource("CircleShape2D_a2x2w")
+debug_color = Color(1, 0.403922, 0.682353, 0.0941176)

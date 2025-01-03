@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://d1m0s4g8ag168"]
+
+[ext_resource type="PackedScene" uid="uid://gfk6ox3yoiex" path="res://scenes/abstract_bullet.tscn" id="1_fxruw"]
+[ext_resource type="Script" path="res://scripts/Bullets/MiniClusterBomb.cs" id="2_76ij8"]
+[ext_resource type="Texture2D" uid="uid://cyp3henmlxski" path="res://assets/Bullets/All_Fire_Bullet_Pixel_16x16_00.png" id="2_le5p5"]
+[ext_resource type="PackedScene" uid="uid://hdd1mpvmudyx" path="res://scenes/exploasion.tscn" id="3_je3d7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xt5hi"]
+atlas = ExtResource("2_le5p5")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcroe"]
+atlas = ExtResource("2_le5p5")
+region = Rect2(272, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od8kk"]
+atlas = ExtResource("2_le5p5")
+region = Rect2(288, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cba4"]
+atlas = ExtResource("2_le5p5")
+region = Rect2(304, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v23v2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xt5hi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcroe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_od8kk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cba4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="AbstractBullet" instance=ExtResource("1_fxruw")]
+script = ExtResource("2_76ij8")
+ExplosionEffect = ExtResource("3_je3d7")
+Lifetime = 2.0
+ExplosionRadius = 50.0
+ExplosionDamage = 20
+TravelDistance = 20.0
+Speed = 1.0
+Speed = 1.0
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_v23v2")
+autoplay = "default"
+frame_progress = 0.207419

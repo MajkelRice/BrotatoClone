@@ -1,0 +1,73 @@
+[gd_scene load_steps=13 format=3 uid="uid://bexpu5ohx7f18"]
+
+[ext_resource type="PackedScene" uid="uid://gfk6ox3yoiex" path="res://scenes/abstract_bullet.tscn" id="1_h8peq"]
+[ext_resource type="Script" path="res://scripts/Bullets/ClusterBomb.cs" id="2_ltboj"]
+[ext_resource type="PackedScene" uid="uid://hdd1mpvmudyx" path="res://scenes/exploasion.tscn" id="3_glf64"]
+[ext_resource type="Texture2D" uid="uid://cyp3henmlxski" path="res://assets/Bullets/All_Fire_Bullet_Pixel_16x16_00.png" id="3_koe60"]
+[ext_resource type="PackedScene" uid="uid://d1m0s4g8ag168" path="res://scenes/bullets/mini_cluster_bomb.tscn" id="4_15a45"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_730m2"]
+atlas = ExtResource("3_koe60")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwrwv"]
+atlas = ExtResource("3_koe60")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43cob"]
+atlas = ExtResource("3_koe60")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1fv8"]
+atlas = ExtResource("3_koe60")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pqjo"]
+atlas = ExtResource("3_koe60")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p1sp7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_730m2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwrwv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43cob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1fv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pqjo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_08ff2"]
+
+[node name="AbstractBullet" instance=ExtResource("1_h8peq")]
+script = ExtResource("2_ltboj")
+ExplosionEffect = ExtResource("3_glf64")
+ExplosionRadius = 50.0
+ExplosionDamage = 50
+SubmunitionScene = ExtResource("4_15a45")
+SubmunitionCount = 5
+Speed = 200.0
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_p1sp7")
+autoplay = "default"
+frame_progress = 0.799571
+
+[node name="ExplosionArea" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea" index="0"]
+shape = SubResource("CircleShape2D_08ff2")

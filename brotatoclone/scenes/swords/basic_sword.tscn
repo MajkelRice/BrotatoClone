@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5l361axo8osq"]
+
+[ext_resource type="PackedScene" uid="uid://c5oojf3u57s0j" path="res://scenes/abstract_sword.tscn" id="1_2dh48"]
+[ext_resource type="Texture2D" uid="uid://f6vauccu03xk" path="res://assets/Swords/Icons/icon_32_2_15.png" id="2_8tqon"]
+
+[node name="AbstractSword" instance=ExtResource("1_2dh48")]
+
+[node name="RangeArea" parent="." index="0"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_8tqon")
+
+[node name="Hitbox" parent="." index="3"]
+collision_layer = 0
+collision_mask = 2

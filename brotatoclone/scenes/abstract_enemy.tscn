@@ -33,7 +33,7 @@ region = Rect2(297, 133, 32, 5)
 atlas = ExtResource("1_4s85d")
 region = Rect2(57, 133, 32, 5)
 
-[node name="AbstractEnemy" type="CharacterBody2D"]
+[node name="AbstractEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_3ldx0")
